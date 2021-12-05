@@ -1,9 +1,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_stackoverflow/invite_page.dart';
 import 'package:get/get.dart';
 
-void main() => runApp(GetMaterialApp(home: Home()));
+void main() => runApp(GetMaterialApp(
+      initialRoute: Home.routeName,
+      getPages: [
+        GetPage(name: Home.routeName, page: () => Home()),
+        GetPage(
+            name: InvitePage.routeName + "/:inviteId/:userId",
+            page: () => InvitePage()),
+      ],
+      unknownRoute: GetPage(name: NotFound.routeName, page: () => NotFound()),
+    ));
 
 class Controller extends GetxController {
   static Controller get to => Get.find();
@@ -11,6 +21,7 @@ class Controller extends GetxController {
 }
 
 class Home extends StatelessWidget {
+  static final routeName = "/home";
   final Controller c = Get.put(Controller());
 
   @override
